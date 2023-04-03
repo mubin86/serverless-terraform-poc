@@ -1,0 +1,8 @@
+serverless-api/node_modules
+serverless-api/.serverless
+terraform/.terraform
+*.tfstate
+*.tfstate.*
+*.backup
+*.lock.info
+.env
