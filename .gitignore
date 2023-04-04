@@ -4,6 +4,7 @@ terraform/.terraform
 *.tfstate
 *.tfstate.*
 *.tfvars
+*.tfvars.json
 *.backup
 *.lock.info
 .env
