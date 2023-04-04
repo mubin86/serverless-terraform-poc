@@ -3,8 +3,7 @@ serverless-api/.serverless
 terraform/.terraform
 *.tfstate
 *.tfstate.*
-terraform/*.tfvars
-terraform/*.tfvars.json
+terraform/dev.tfvars
 *.backup
 *.lock.info
 .env
