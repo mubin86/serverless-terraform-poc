@@ -31,6 +31,7 @@ module "iam" {
 
   dynamodb_table_arn = module.dynamodb.dynamodb_table_arn
 }
+
 module "lambda" {
   source = "./modules/services/lambda"
 
