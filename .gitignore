@@ -1,7 +1,7 @@
 serverless-api/node_modules
 serverless-api/.serverless
 terraform/.terraform
-terraform/dev.tfvars
+terraform/*.tfvars
 *.tfstate
 *.tfstate.*
 *.backup
