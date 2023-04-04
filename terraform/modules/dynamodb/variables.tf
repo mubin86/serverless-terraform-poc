@@ -22,8 +22,3 @@ variable "gsi_read_capacity" {
     type = number
     default = 3
 }
-
-variable "lambda_function_name" {
-    type = string
-    description = "The name of the Lambda function"
-}
