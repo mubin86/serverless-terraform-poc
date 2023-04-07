@@ -11,7 +11,7 @@ resource "aws_iam_policy" "dynamoDBLambdaPolicy" {
           "dynamodb:PutItem"
         ]
         Resource = [
-           "${var.dynamodb_table_arn}"
+          "${var.dynamodb_table_arn}"
         ]
       }
     ]
