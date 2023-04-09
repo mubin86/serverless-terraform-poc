@@ -3,11 +3,21 @@ resource "aws_dynamodb_table" "demo-dynamodb-table" {
   billing_mode   = "PROVISIONED"
   read_capacity  = var.read_capacity
   write_capacity = var.write_capacity
-  hash_key       = "UserId"
-  range_key      = "GameTitle"
+  hash_key       = "AccountId"
+  range_key      = "CreatedAt"
 
   attribute {
-    name = "UserId"
+    name = "AccountId"
+    type = "S"
+  }
+
+   attribute {
+    name = "CreatedAt"
+    type = "S"
+  }
+
+  attribute {
+    name = "OriginCountry"
     type = "S"
   }
 
@@ -17,7 +27,7 @@ resource "aws_dynamodb_table" "demo-dynamodb-table" {
   }
 
   attribute {
-    name = "TopScore"
+    name = "Score"
     type = "N"
   }
 
@@ -29,9 +39,19 @@ resource "aws_dynamodb_table" "demo-dynamodb-table" {
   global_secondary_index {
     name               = "GameTitleIndex"
     hash_key           = "GameTitle"
-    range_key          = "TopScore"
+    range_key          = "OriginCountry"
     write_capacity     = var.gsi_write_capacity
+    # must be greater than or equal to the base table capacity bcz under 
+    # the hood some kind of repication happened with the new composite primary key with eventual consistency
+
     read_capacity      = var.gsi_read_capacity
+    projection_type    = "INCLUDE"
+    non_key_attributes = ["UserId"]
+  }
+
+   local_secondary_index {
+    name               = "TopScoreIndex"
+    range_key          = "Score"
     projection_type    = "INCLUDE"
     non_key_attributes = ["UserId"]
   }
