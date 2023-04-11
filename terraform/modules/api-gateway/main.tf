@@ -20,12 +20,12 @@ resource "aws_apigatewayv2_integration" "poc-lambda-api-integration" {
 }
 
 resource "aws_apigatewayv2_route" "poc-lambda-route" {
-  for_each = var.lambdas
+  for_each = var.endpoints
 
   api_id    = aws_apigatewayv2_api.poc-lambda-api.id
   # route_key = "ANY /{proxy+}"
-  route_key = "GET /${each.value.function_name}"
-  target    = "integrations/${aws_apigatewayv2_integration.poc-lambda-api-integration[each.value.function_name].id}"
+  route_key = "${each.value.method} /${each.value.path}"
+  target    = "integrations/${aws_apigatewayv2_integration.poc-lambda-api-integration[each.key].id}"
 }
 
 resource "aws_lambda_permission" "api-gw-lambda-permission" {

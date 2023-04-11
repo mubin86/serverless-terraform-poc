@@ -5,6 +5,20 @@ provider "aws" {
 locals {
   # lambda_function_name = var.lambda_function_name
   lambdas = ["add-game-info", "game-country-stat", "game-score-info"]
+  endpoints = {
+    add-game-info : {
+      path   = "add-player-game-info"
+      method = "POST"
+    },
+    game-country-stat : {
+      path   = "game-country-participant"
+      method = "GET"
+    }
+    game-score-info : {
+      path   = "player-score-info"
+      method = "GET"
+    }
+  }
 }
 
 resource "aws_s3_bucket" "testing-bucket" {
@@ -46,6 +60,7 @@ module "api-gateway" {
   poc_lamda_api_name = "testing-poc-game"
   # lambda_invoke_url  = module.lambda.lambda_invoke_url
   # lambda_arn         = module.lambda.lambda_arn
-  lambdas = module.lambda.lambdas
+  lambdas   = module.lambda.lambdas
+  endpoints = local.endpoints
 }
 

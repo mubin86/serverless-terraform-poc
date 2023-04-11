@@ -11,5 +11,13 @@ variable "poc_lamda_api_name" {
 # }
 
 variable "lambdas" {
+  # type = set(object({
+  #     path   = string
+  #     method = string
+  #     lambda = string
+  #   })
+}
 
+variable "endpoints" {
+  
 }
