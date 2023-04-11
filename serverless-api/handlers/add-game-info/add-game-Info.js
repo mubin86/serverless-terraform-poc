@@ -1,9 +1,9 @@
-exports.gameHandler = (event, context, cb) => {
+exports.handler = (event, context, cb) => {
     const p = new Promise((resolve) => {
       resolve('success');
     });
 
-    const message = 'Hello people, terraform poc game';
+    const message = 'Hello people, terraform poc game add lamda handler';
     const response = {
       statusCode: 200,
       body: JSON.stringify(message),
