@@ -1,5 +1,5 @@
-resource "aws_dynamodb_table" "demo-dynamodb-table" {
-  name           = "${var.environment}-poc-table"
+resource "aws_dynamodb_table" "poc-game-dynamodb-table" {
+  name           = "${var.environment}-poc-game"
   billing_mode   = "PROVISIONED"
   read_capacity  = var.read_capacity
   write_capacity = var.write_capacity
@@ -11,7 +11,7 @@ resource "aws_dynamodb_table" "demo-dynamodb-table" {
     type = "S"
   }
 
-   attribute {
+  attribute {
     name = "CreatedAt"
     type = "S"
   }
@@ -50,7 +50,7 @@ resource "aws_dynamodb_table" "demo-dynamodb-table" {
   }
 
    local_secondary_index {
-    name               = "TopScoreIndex"
+    name               = "ScoreIndex"
     range_key          = "Score"
     projection_type    = "INCLUDE"
     non_key_attributes = ["UserId"]

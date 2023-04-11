@@ -1,15 +1,19 @@
-data "archive_file" "lambdaZip" {
+data "archive_file" "lambdaDefinitions" {
+  for_each = toset(var.lambdas)
+
   type        = "zip"
-  source_file = "${path.module}/../../../../serverless-api/game/handler.js"
-  output_path = "${path.module}/../../../../serverless-api/files/game-handler.zip"
+  source_dir = "${path.module}/../../../../serverless-api/handlers/${each.key}"
+  output_path = "${path.module}/../../../../serverless-api/build/pocGame/${each.key}.zip"
 }
 
-resource "aws_lambda_function" "pocLambda" {
-  function_name    = var.lambda_function_name
+resource "aws_lambda_function" "pocLambdas" {
+  for_each = toset(var.lambdas)
+
+  function_name    = each.key
   role             = var.role_arn
-  handler          = "handler.gameHandler"
-  filename         = "${path.module}/../../../../serverless-api/files/game-handler.zip"
-  source_code_hash = data.archive_file.lambdaZip.output_base64sha256
+  handler          = "${each.key}.handler"
+  filename         = "${path.module}/../../../../serverless-api/build/pocGame/${each.key}.zip"
+  source_code_hash = data.archive_file.lambdaDefinitions[each.key].output_base64sha256
 
   runtime     = "nodejs16.x"
   memory_size = 128

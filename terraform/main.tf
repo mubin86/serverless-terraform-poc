@@ -3,7 +3,8 @@ provider "aws" {
 }
 
 locals {
-  lambda_function_name = var.lambda_function_name
+  # lambda_function_name = var.lambda_function_name
+  lambdas = ["add-game-info", "game-country-stat", "game-score-info"]
 }
 
 resource "aws_s3_bucket" "testing-bucket" {
@@ -35,15 +36,16 @@ module "iam" {
 module "lambda" {
   source = "./modules/services/lambda"
 
-  lambda_function_name = local.lambda_function_name
-  role_arn             = module.iam.lambda_role_arn
+  role_arn = module.iam.lambda_role_arn
+  lambdas  = local.lambdas
 }
 
 module "api-gateway" {
   source = "./modules/api-gateway"
 
   poc_lamda_api_name = "testing-poc-game"
-  lambda_invoke_url  = module.lambda.lambda_invoke_url
-  lambda_arn         = module.lambda.lambda_arn
+  # lambda_invoke_url  = module.lambda.lambda_invoke_url
+  # lambda_arn         = module.lambda.lambda_arn
+  lambdas = module.lambda.lambdas
 }
 

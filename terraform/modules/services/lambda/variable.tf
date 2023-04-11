@@ -1,9 +1,14 @@
-variable "lambda_function_name" {
-  description = "The name of the Lambda function"
-}
+# variable "lambda_function_name" {
+#   description = "The name of the Lambda function"
+# }
 
 variable "role_arn" {
   description = "The arn of the lambda role"
+}
+
+variable "lambdas" {
+  default = []
+  type = list(string)
 }
 
 # variable "lambda_role" {

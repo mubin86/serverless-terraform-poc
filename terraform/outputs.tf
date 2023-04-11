@@ -1,11 +1,11 @@
 output "api_gateway_mod" {
-    value = module.api-gateway
+  value = module.api-gateway
 }
-  
+
 output "lambda_mod" {
-    value = module.lambda
+  value = module.lambda
 }
 
 output "dynamodb_mod" {
-    value = module.dynamodb
+  value = module.dynamodb
 }
