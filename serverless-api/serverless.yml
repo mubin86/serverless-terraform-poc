@@ -14,8 +14,6 @@ provider:
   region: us-east-1
 
 functions:
-  first:
-    handler: first.hello
   second:
     handler: second.hello
     events:

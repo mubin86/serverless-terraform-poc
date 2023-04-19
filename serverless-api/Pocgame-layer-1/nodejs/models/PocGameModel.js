@@ -1,7 +1,6 @@
 const dynamoose = require("dynamoose");
 const path = require("path")
 require('dotenv').config({path: path.resolve(__dirname, '../../nodejs/.env')})
-const PocGameTableName = process.env.POC_GAME_TABLE;
 
 const PocGameSchema = new dynamoose.Schema(
     {
