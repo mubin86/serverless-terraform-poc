@@ -3,7 +3,6 @@ provider "aws" {
 }
 
 locals {
-  # lambda_function_name = var.lambda_function_name
   lambdas = ["add-game-info", "game-country-stat", "game-score-info"]
   endpoints = {
     add-game-info : {
@@ -47,11 +46,16 @@ module "iam" {
   dynamodb_table_arn = module.dynamodb.dynamodb_table_arn
 }
 
+module "poc-lambda-layer" {
+  source = "./modules/services/lambda-layers"
+}
+
 module "lambda" {
   source = "./modules/services/lambda"
 
   role_arn = module.iam.lambda_role_arn
   lambdas  = local.lambdas
+  lambda_layer_arn = module.poc-lambda-layer.poc_lambda_layer_arn
 }
 
 module "api-gateway" {

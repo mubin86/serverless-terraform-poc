@@ -13,7 +13,7 @@ resource "aws_dynamodb_table" "poc-game-dynamodb-table" {
 
   attribute {
     name = "CreatedAt"
-    type = "S"
+    type = "N"
   }
 
   attribute {

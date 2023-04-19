@@ -18,4 +18,6 @@ resource "aws_lambda_function" "pocLambdas" {
   runtime     = "nodejs16.x"
   memory_size = 128
   timeout     = 3
+
+  layers = [var.lambda_layer_arn]
 }

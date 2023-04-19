@@ -8,11 +8,22 @@ resource "aws_iam_policy" "dynamoDBLambdaPolicy" {
         Effect = "Allow"
         Action = [
           "dynamodb:GetItem",
-          "dynamodb:PutItem"
+          "dynamodb:PutItem",
+          "dynamodb:CreateTable",
+          "dynamodb:UpdateTable"
         ]
         Resource = [
           "${var.dynamodb_table_arn}"
         ]
+      },
+      {
+        Effect: "Allow",
+        Action: [
+                "logs:CreateLogGroup",
+                "logs:CreateLogStream",
+                "logs:PutLogEvents"
+        ],
+        Resource: "arn:aws:logs:*:*:*"
       }
     ]
   })

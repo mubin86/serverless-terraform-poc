@@ -6,6 +6,9 @@ variable "role_arn" {
   description = "The arn of the lambda role"
 }
 
+variable "lambda_layer_arn" {
+  description = "The arn of the lambda layer"
+}
 variable "lambdas" {
   default = []
   type = list(string)
