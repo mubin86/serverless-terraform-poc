@@ -1,6 +1,9 @@
-import * as dynamoose from 'dynamoose';
+const dynamoose = require("dynamoose");
+const path = require("path")
+require('dotenv').config({path: path.resolve(__dirname, '../../nodejs/.env')})
+const PocGameTableName = process.env.POC_GAME_TABLE;
 
-export const PocGameSchema = new dynamoose.Schema(
+const PocGameSchema = new dynamoose.Schema(
     {
         AccountId: {
             type: String,
@@ -35,7 +38,7 @@ export const PocGameSchema = new dynamoose.Schema(
         Score: {
             type: Number,
             required: true,
-            // index: true,
+            // index: true, ->this indicates the LSI
         }
     },
     // {
@@ -46,4 +49,10 @@ export const PocGameSchema = new dynamoose.Schema(
     // }
 );
 
-export const PocGame = dynamoose.model(process.env.POC_GAME_TABLE, PocGameSchema)
+const PocGame = dynamoose.model(process.env.POC_GAME_TABLE, PocGameSchema, {
+    "create": false,
+    "waitForActive": false
+});
+
+// module.exports = PocGame;
+exports.PocGame = PocGame;
