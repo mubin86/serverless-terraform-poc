@@ -1,5 +1,9 @@
 serverless-api/node_modules
 serverless-api/.serverless
+serverless-api/Pocgame-layer-1/nodejs/node_modules
+serverless-api/Pocgame-layer-1/nodejs/.env
+serverless-api/Pocgame-layer-1/nodejs/*.env
+serverless-api/Pocgame-layer-1/nodejs/.env.*
 terraform/.terraform
 terraform/*.tfvars
 *.tfstate
