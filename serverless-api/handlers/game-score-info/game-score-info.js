@@ -6,7 +6,7 @@ exports.handler = async (event, context, callback) => {
   const pathParams = event.pathParameters;
   try {
     const item = await models.PocGame.scan({GameTitle: { eq: pathParams.gameTitle }})
-                                    .using('GameTitleIndex').where(OriginCountry)
+                                    .using('GameTitleIndex').where('OriginCountry')
                                     .eq(pathParams.originCountry).exec();
 
     // const filter = new dynamoose.Condition().where("GameTitle").eq(pathParams.gameTitle).and().where("OriginCountry").eq(pathParams.originCountry);
