@@ -4,12 +4,13 @@ const dynamoose = require("dynamoose");
 
 exports.handler = async (event, context, callback) => {
   const pathParams = event.pathParameters;
-  // const [err, item] = await utils.to(models.PocGame.query({"GameTitle": {"contains": pathParams.gameTitle}}));
-  // const filter = new dynamoose.Condition().where("OriginCountry").eq(pathParams.originCountry);
   try {
     const item = await models.PocGame.scan({GameTitle: { eq: pathParams.gameTitle }})
-                                    .using('GameTitleIndex').where('OriginCountry')
+                                    .using('GameTitleIndex').where(OriginCountry)
                                     .eq(pathParams.originCountry).exec();
+
+    // const filter = new dynamoose.Condition().where("GameTitle").eq(pathParams.gameTitle).and().where("OriginCountry").eq(pathParams.originCountry);
+    // const item = await models.PocGame.query(filter).using('GameTitleIndex').exec();
     const response = {
       statusCode: 200,
       headers: { 'Content-Type': 'application/json' },
