@@ -10,11 +10,11 @@ locals {
       method = "POST"
     },
     game-country-stat : {
-      path   = "game-country-participant"
+      path   = "game-top-scorer"
       method = "GET"
     }
     game-score-info : {
-      path   = "player-score-info"
+      path   = "game-country-score-info/{gameTitle}/{originCountry}"
       method = "GET"
     }
   }
