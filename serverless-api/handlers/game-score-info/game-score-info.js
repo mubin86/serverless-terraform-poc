@@ -1,14 +1,24 @@
-exports.handler = (event, context, cb) => {
-    const p = new Promise((resolve) => {
-      resolve('success');
-    });
+const models = require("/opt/nodejs/models/PocGameModel");
+const utils = require('/opt/nodejs/utils')
+const dynamoose = require("dynamoose");
 
-    const message = 'Hello people, terraform poc game score info handler';
+exports.handler = async (event, context, callback) => {
+  const pathParams = event.pathParameters;
+  // const [err, item] = await utils.to(models.PocGame.query({"GameTitle": {"contains": pathParams.gameTitle}}));
+  // const filter = new dynamoose.Condition().where("OriginCountry").eq(pathParams.originCountry);
+  try {
+    const item = await models.PocGame.scan({GameTitle: { eq: pathParams.gameTitle }})
+                                    .using('GameTitleIndex').where('OriginCountry')
+                                    .eq(pathParams.originCountry).exec();
     const response = {
       statusCode: 200,
-      body: JSON.stringify(message),
-      headers: {'Content-Type': 'application/json'}
-    };
-    p.then(() => cb(null, response)).catch((e) => cb(e));
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(item)
+    }
+    callback(null, response);
+  } catch (error) {
+    callback(null, utils.handleErr(error));
+  }
+  
   };
   
