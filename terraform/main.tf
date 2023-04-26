@@ -10,7 +10,7 @@ locals {
       method = "POST"
     },
     game-country-stat : {
-      path   = "game-top-scorer"
+      path   = "game-account-info/{accountId}/{createdBeforeInMonth}"
       method = "GET"
     }
     game-score-info : {
