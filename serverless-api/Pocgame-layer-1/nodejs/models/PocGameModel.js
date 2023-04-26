@@ -49,7 +49,7 @@ const PocGameSchema = new dynamoose.Schema(
 );
 
 const PocGame = dynamoose.model(process.env.POC_GAME_TABLE, PocGameSchema, {
-    "create": false,
+    "create": false, 
     "waitForActive": false
 });
 

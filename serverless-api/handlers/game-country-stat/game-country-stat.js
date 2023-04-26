@@ -1,14 +1,22 @@
-exports.handler = (event, context, cb) => {
-    const p = new Promise((resolve) => {
-      resolve('success');
-    });
+const models = require("/opt/nodejs/models/PocGameModel");
+const utils = require('/opt/nodejs/utils')
+const dynamoose = require("dynamoose");
 
-    const message = 'Hello people, terraform poc game get member country stat handler';
-    const response = {
-      statusCode: 200,
-      body: JSON.stringify(message),
-      headers: {'Content-Type': 'application/json'}
-    };
-    p.then(() => cb(null, response)).catch((e) => cb(e));
+exports.handler = async (event, context, callback) => {
+  const pathParams = event.pathParameters;
+  try {
+      const d = new Date();
+      d.setMonth(d.getMonth() - Number(pathParams.createdBeforeInMonth));
+
+      const item = await models.PocGame.query({"AccountId": {eq: pathParams.accountId}}).where('CreatedAt').ge(d.getTime()).exec();
+      const response = {
+        statusCode: 200,
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(item)
+      }
+    callback(null, response);
+  } catch (error) {
+    callback(null, utils.handleErr(error));
+  }
   };
   
