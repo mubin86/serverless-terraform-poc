@@ -1,6 +1,6 @@
-# variable "lambda_function_name" {
-#   description = "The name of the Lambda function"
-# }
+variable "s3_triggered_lambda_function_name" {
+  description = "The name of the s3 triggered Lambda function"
+}
 
 variable "role_arn" {
   description = "The arn of the lambda role"
@@ -21,3 +21,7 @@ variable "lambdas" {
 # variable "lambda_file_name" {
 #   description = "Path to lambda code zip"
 # }
+
+variable "s3_triggered_lambda_role_arn" {
+  description = "The arn of the s3 triggered lambda role"
+}

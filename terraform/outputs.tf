@@ -9,3 +9,7 @@ output "lambda_mod" {
 output "dynamodb_mod" {
   value = module.dynamodb
 }
+
+output "s3_mod" {
+  value = module.s3
+}

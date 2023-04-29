@@ -27,3 +27,13 @@ variable "lambda_function_name" {
   type        = string
   description = "The name of the Lambda function"
 }
+
+variable "bucket_name" {
+  type        = string
+  description = "The name of poc bucket"
+}
+
+variable "s3_triggered_lambda_function_name" {
+  type        = string
+  description = "The name of the s3 triggered lamda function"
+}

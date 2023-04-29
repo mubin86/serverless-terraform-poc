@@ -56,6 +56,8 @@ module "lambda" {
   role_arn = module.iam.lambda_role_arn
   lambdas  = local.lambdas
   lambda_layer_arn = module.poc-lambda-layer.poc_lambda_layer_arn
+  s3_triggered_lambda_function_name = var.s3_triggered_lambda_function_name
+  s3_triggered_lambda_role_arn = module.iam.s3_lambda_role_arn
 }
 
 module "api-gateway" {
@@ -66,5 +68,13 @@ module "api-gateway" {
   # lambda_arn         = module.lambda.lambda_arn
   lambdas   = module.lambda.lambdas
   endpoints = local.endpoints
+}
+
+module "s3" {
+  source = "./modules/s3"
+
+  bucket_name = var.bucket_name
+  environment = var.environment
+  lambda_arn = module.lambda.s3_triggered_lambda.arn
 }
 
