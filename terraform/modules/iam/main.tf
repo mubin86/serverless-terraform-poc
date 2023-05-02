@@ -82,7 +82,9 @@ resource "aws_iam_policy" "s3LambdaPolicy" {
         "Action": [
           "s3:*"  ###***********WIP
         ],
-        "Resource": "*" ###***********WIP
+        "Resource": [
+          "${var.s3_bucket_arn}"
+        ]
       },
       {
         Effect: "Allow",

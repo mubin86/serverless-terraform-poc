@@ -10,7 +10,7 @@ resource "aws_lambda_function" "pocLambdas" {
   for_each = toset(var.lambdas)
 
   function_name    = each.key
-  role             = var.role_arn
+  role             =  startswith(each.key, "upload") ? var.s3_triggered_lambda_role_arn : var.role_arn
   handler          = "${each.key}.handler"
   filename         = "${path.module}/../../../../serverless-api/build/pocGame/${each.key}.zip"
   source_code_hash = data.archive_file.lambdaDefinitions[each.key].output_base64sha256

@@ -3,7 +3,7 @@ provider "aws" {
 }
 
 locals {
-  lambdas = ["add-game-info", "game-country-stat", "game-score-info"]
+  lambdas = ["add-game-info", "game-country-stat", "game-score-info", "upload-image-to-s3"]
   endpoints = {
     add-game-info : {
       path   = "add-player-game-info"
@@ -16,6 +16,10 @@ locals {
     game-score-info : {
       path   = "game-country-score-info/{gameTitle}/{originCountry}"
       method = "GET"
+    }
+    upload-image-to-s3 : {
+      path   = "upload-profile-image"
+      method = "POST"
     }
   }
 }
@@ -44,6 +48,7 @@ module "iam" {
   source = "./modules/iam"
 
   dynamodb_table_arn = module.dynamodb.dynamodb_table_arn
+  s3_bucket_arn = module.s3.s3_bucket_arn
 }
 
 module "poc-lambda-layer" {
