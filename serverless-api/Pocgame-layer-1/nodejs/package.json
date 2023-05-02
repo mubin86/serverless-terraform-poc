@@ -10,9 +10,11 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "aws-sdk": "^2.1368.0",
     "dotenv": "^16.0.3",
     "dynamoose": "^3.1.0",
     "parse-error": "^0.2.0",
+    "parse-multipart": "^1.0.4",
     "uuidv4": "^6.2.13"
   }
 }
