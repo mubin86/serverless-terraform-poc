@@ -18,7 +18,7 @@
  cd serverless-api
  serverless deploy
  ```
- ***since we are handling here the deployment functionality by terraform so can be skipped once the serverless is initially configured***
+ ***since we are handling here the deployment functionality by terraform so can be skipped once the serverless part is initially configured***
  
 # Clarification
 The `terraform` directory defines a small set of infrastructure elements using `modules`: Lambda, Layer, API Gateway, DynamoDB, S3 and necessary IAM roles for all of these. The key here is the `modules` directory where trying to put some best practices along with `variables.tf` and `terraform.tfvars` file by passing the necessary attributes and populates acordingly.
